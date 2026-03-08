@@ -41,7 +41,7 @@ const deleteProductRouter = require("./routes/admin/deleteProduct");
 
 // Middlewares 
 app.use(cors({
-  origin: "http://localhost:5173",
+  origin: "sampleecommerce-qvibyf9kn-jatinkesharwani555-sources-projects.vercel.app",
   credentials: true
 }));
 app.use(express.json());
