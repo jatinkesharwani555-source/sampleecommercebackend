@@ -379,13 +379,16 @@ exports.loginRouterController = async (req, res) => {
         const user = await userModel.findOne({
             userEmail: userEmail
         }).select("+userPassword");
-
+    
+        
         if (!user) {
+            console.log("User Not Found")
             return res.status(404).json({
                 success: false,
                 message: "User Not Found"
             });
         }
+        console.log("USER1", user)
         const isMatchPassword = await bcrypt.compare(userPassword, user.userPassword);
 
         if (!isMatchPassword) {
@@ -395,7 +398,7 @@ exports.loginRouterController = async (req, res) => {
             });
         }
 
-        console.log("User1", user);
+        console.log("User2", user);
 
         const token = jwt.sign({
             id: user._id,
@@ -405,7 +408,7 @@ exports.loginRouterController = async (req, res) => {
             role: user.role
         }, process.env.SECRET_KEY, { expiresIn: "1h" });
 
-        console.log("User2", user);
+        console.log("User3", user);
 
         res.cookie("tokenName", token, {
             httpOnly: true,
@@ -414,6 +417,7 @@ exports.loginRouterController = async (req, res) => {
             path: "/",
             maxAge: 60 * 60 * 1000
         });
+        console.log("USER4", user)
 
         res.status(200).json({
             success: true,
