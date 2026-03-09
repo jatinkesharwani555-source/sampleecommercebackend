@@ -42,7 +42,7 @@ const deleteProductRouter = require("./routes/admin/deleteProduct");
 // Middlewares 
 app.use(cors({
   origin: [
-    "https://sampleecommerce-qvibyf9kn-jatinkesharwani555-sources-projects.vercel.app"
+    "https://kesharwanimartfrontend.vercel.app"
   ],
   credentials: true
 }));
