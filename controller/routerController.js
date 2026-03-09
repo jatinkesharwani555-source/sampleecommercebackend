@@ -404,15 +404,19 @@ exports.loginRouterController = async (req, res) => {
         }, process.env.SECRET_KEY, { expiresIn: "1h" });
         res.cookie("tokenName", token, {
             httpOnly: true,
-            secure: process.env.NODE_ENV === "production",
-            sameSite: process.env.NODE_ENV === "none"
+            secure: true,
+            sameSite: "none",
+            path: "/"
         });
+
+        console.log("User",user.role);
 
         res.status(200).json({
             success: true,
             message: "Login Succesful",
             role: user.role
         });
+
     } catch (err) {
         res.status(500).json({
             success: false,
