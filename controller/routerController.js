@@ -405,7 +405,7 @@ exports.loginRouterController = async (req, res) => {
         res.cookie("tokenName", token, {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
-            sameSite: process.env.NODE_ENV === "production" ? "none" : "lax"
+            sameSite: process.env.NODE_ENV === "none"
         });
 
         res.status(200).json({
