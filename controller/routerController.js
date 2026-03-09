@@ -395,6 +395,8 @@ exports.loginRouterController = async (req, res) => {
             });
         }
 
+        console.log("User1", user);
+
         const token = jwt.sign({
             id: user._id,
             name: user.userName,
@@ -402,6 +404,9 @@ exports.loginRouterController = async (req, res) => {
             mobile: user.userMobileNo,
             role: user.role
         }, process.env.SECRET_KEY, { expiresIn: "1h" });
+
+        console.log("User2", user);
+
         res.cookie("tokenName", token, {
             httpOnly: true,
             secure: true,
@@ -409,7 +414,7 @@ exports.loginRouterController = async (req, res) => {
             path: "/"
         });
 
-        console.log("User",user.role);
+        console.log("User3", user.role);
 
         res.status(200).json({
             success: true,
