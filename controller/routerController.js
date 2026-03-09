@@ -404,8 +404,8 @@ exports.loginRouterController = async (req, res) => {
         }, process.env.SECRET_KEY, { expiresIn: "1h" });
         res.cookie("tokenName", token, {
             httpOnly: true,
-            secure: true,
-            sameSite: "none"
+            secure: process.env.NODE_ENV === "production",
+            sameSite: process.env.NODE_ENV === "production" ? "none" : "lax"
         });
 
         res.status(200).json({
@@ -426,8 +426,8 @@ exports.loginRouterController = async (req, res) => {
 exports.logoutRouterController = async (req, res) => {
     res.clearCookie("tokenName", {
         httpOnly: true,
-        secure: false,
-        sameSite: "lax"
+        secure: process.env.NODE_ENV === "production",
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax"
     });
     res.json({
         success: true,
