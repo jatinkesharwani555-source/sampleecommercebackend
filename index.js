@@ -40,9 +40,15 @@ const updateProductRouter = require("./routes/admin/updateProduct");
 const deleteProductRouter = require("./routes/admin/deleteProduct");
 
 // Middlewares 
+app.set("trust proxy", 1);
 app.use(cors({
-  origin: "https://kesharwanimartfrontend.vercel.app",
-  credentials: true
+  origin: [
+    "https://kesharwanimartfrontend.vercel.app",
+    "http://localhost:5173"
+  ],
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"]
 }));
 app.use(express.json());
 app.use(cookieParser());
