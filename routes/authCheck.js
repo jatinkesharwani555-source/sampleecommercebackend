@@ -3,6 +3,6 @@ const authCheckRouter = express.Router();
 const routerController = require("../controller/routerController");
 const verifyToken = require("./verifyToken");
 
-authCheckRouter.get("/auth-check", verifyToken, routerController.authCheckRouterController);
+authCheckRouter.get("/api/auth-check", verifyToken, routerController.authCheckRouterController);
 
 module.exports = authCheckRouter;
