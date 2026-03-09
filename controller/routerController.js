@@ -379,16 +379,13 @@ exports.loginRouterController = async (req, res) => {
         const user = await userModel.findOne({
             userEmail: userEmail
         }).select("+userPassword");
-    
-        
+
         if (!user) {
-            console.log("User Not Found")
             return res.status(404).json({
                 success: false,
                 message: "User Not Found"
             });
         }
-        console.log("USER1", user)
         const isMatchPassword = await bcrypt.compare(userPassword, user.userPassword);
 
         if (!isMatchPassword) {
@@ -398,8 +395,6 @@ exports.loginRouterController = async (req, res) => {
             });
         }
 
-        console.log("User2", user);
-
         const token = jwt.sign({
             id: user._id,
             name: user.userName,
@@ -407,24 +402,18 @@ exports.loginRouterController = async (req, res) => {
             mobile: user.userMobileNo,
             role: user.role
         }, process.env.SECRET_KEY, { expiresIn: "1h" });
-
-        console.log("User3", user);
-
         res.cookie("tokenName", token, {
             httpOnly: true,
             secure: true,
             sameSite: "none",
-            path: "/",
-            maxAge: 60 * 60 * 1000
+            path: "/"
         });
-        console.log("USER4", user)
 
         res.status(200).json({
             success: true,
             message: "Login Succesful",
             role: user.role
         });
-
     } catch (err) {
         res.status(500).json({
             success: false,
@@ -438,9 +427,8 @@ exports.loginRouterController = async (req, res) => {
 exports.logoutRouterController = async (req, res) => {
     res.clearCookie("tokenName", {
         httpOnly: true,
-        secure: true,
-        sameSite: "none",
-        path: "/"
+        secure: process.env.NODE_ENV === "production",
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax"
     });
     res.json({
         success: true,
