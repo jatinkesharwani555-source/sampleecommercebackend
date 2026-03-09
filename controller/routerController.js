@@ -411,10 +411,9 @@ exports.loginRouterController = async (req, res) => {
             httpOnly: true,
             secure: true,
             sameSite: "none",
-            path: "/"
+            path: "/",
+            maxAge: 60 * 60 * 1000
         });
-
-        console.log("User3", user.role);
 
         res.status(200).json({
             success: true,
@@ -435,8 +434,9 @@ exports.loginRouterController = async (req, res) => {
 exports.logoutRouterController = async (req, res) => {
     res.clearCookie("tokenName", {
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax"
+        secure: true,
+        sameSite: "none",
+        path: "/"
     });
     res.json({
         success: true,
