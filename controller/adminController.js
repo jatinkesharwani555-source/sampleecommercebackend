@@ -62,7 +62,7 @@ exports.createProductRouterController = async (req, res) => {
       });
     }
 
-    const imageName = req.files.map(file => file.filename);
+    const imageName = req.files.map(file => file.path);
 
     const product = await productModel.create({
       productMiniDesc: miniDesc,
