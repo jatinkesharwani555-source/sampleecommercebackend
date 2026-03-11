@@ -111,7 +111,7 @@ exports.updateProductRouterController = async (req, res) => {
     product.productCategory = category;
     product.sellerType = sellerType;
 
-    console.log(req.files);
+    console.log("Requestssssss",req.files);
     // If New Images Uploaded
     if(req.files && req.files.length > 0){
       product.productImage = req.files.map(file => file.path || file.secure_url);
