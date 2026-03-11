@@ -338,15 +338,17 @@ exports.signUpRouterController = async (req, res) => {
         // Hash Password 
         const hashedPassword = await bcrypt.hash(userPassword, 10);
 
+        let userImage = req.file ? req.file.path : "/default.jpg";
+
         const createUser = await userModel.create({
             userName: userName,
             userEmail: userEmail,
             userMobileNo: userMobileNo,
             userPassword: hashedPassword,
-            role
+            role,
+            userImage: userImage
         });
 
-        console.log("User Created Successfully: ", createUser);
         res.status(200).json({
             success: true,
             message: "User Created Successfully"
