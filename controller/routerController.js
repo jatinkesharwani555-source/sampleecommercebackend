@@ -115,20 +115,11 @@ exports.profileEditRouterController = async (req, res) => {
         presentUser.userEmail = email;
         presentUser.userMobileNo = mobile;
 
+        let userImage = req.file ? req.file.path : "/default.jpg";
+
         if (req.file) {
-            if (presentUser.userImage !== "default.jpg") {
-                const oldImagePath = path.join(__dirname, "../uploads", presentUser.userImage);
-
-                if (fs.existsSync(oldImagePath)) {
-                    fs.unlink(oldImagePath, (err) => {
-                        if (err) console.log("Old Image Deleted Faild: ", err);
-                        else console.log("Old Image Deleted: ", oldImagePath);
-                    })
-                }
-            }
-
-
-            presentUser.userImage = req.file.filename;
+            let userImage = req.file.path;
+            presentUser.userImage = userImage;
         }
         await presentUser.save();
 
