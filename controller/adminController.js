@@ -113,7 +113,7 @@ exports.updateProductRouterController = async (req, res) => {
 
     // If New Images Uploaded
     if(req.files && req.files.length > 0){
-      product.productImage = req.files.map(file => file.filename);
+      product.productImage = req.files.map(file => file.path);
     }
 
     await product.save();
