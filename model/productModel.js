@@ -17,6 +17,9 @@ const productSchema = mongoose.Schema({
         type: Number,
         required: true
     },
+    productPriceAfterDiscount: {
+        type: Number
+    },
     productCategory: {
         type: String,
         enum: ["Category1", "Category2", "Category3", "Category4"],

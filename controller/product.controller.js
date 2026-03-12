@@ -2,6 +2,7 @@ const productModel = require("../model/productModel");
 const asyncHandler = require("../utils/asyncHandler.utils");
 const ApiResponse = require("../utils/ApiResponse.utils");
 const mongoose = require("mongoose");
+const { allowedCategories } = require("../constants/allowedCategory");
 
 /* ================= Home Router Controller ================= */
 exports.getAllProductsRouterController = asyncHandler(async (req, res) => {
@@ -21,6 +22,12 @@ exports.getAllProductsRouterController = asyncHandler(async (req, res) => {
 exports.getDetailedProductController = asyncHandler(async (req, res) => {
   const productId = req.params.id;
 
+  if (!mongoose.Types.ObjectId.isValid(productId)) {
+    return res.status(400).json(
+      new ApiResponse(false, "Invalid Product Id")
+    );
+  }
+
   const product = await productModel.findById(productId);
 
   if (!product) {
@@ -28,7 +35,6 @@ exports.getDetailedProductController = asyncHandler(async (req, res) => {
       new ApiResponse(false, "Product Not Found")
     );
   }
-  console.log(product)
   res.status(200).json(
     new ApiResponse(true, "Products Fetched Successfully", product)
   );
@@ -45,12 +51,20 @@ exports.getProductListRouterController = asyncHandler(async (req, res) => {
   let filter = {};
 
   if (category) {
+    if (!allowedCategories.includes(category)) {
+      return res.status(400).json(
+        new ApiResponse(false, "Invalid Category")
+      );
+    }
     filter.productCategory = category;
   }
 
   if (id && mongoose.Types.ObjectId.isValid(id)) {
     filter._id = { $ne: id };
   }
+
+  const totalProducts = await productModel.countDocuments(filter);
+
   const products = await productModel
     .find(filter)
     .skip(skip)
@@ -68,6 +82,12 @@ exports.getProductsByCategoryRouterController = asyncHandler(async (req, res) =>
   if (!category) {
     return res.status(400).json(
       new ApiResponse(false, "Category Is Require")
+    );
+  }
+
+  if (!allowedCategories.includes(category)) {
+    return res.status(400).json(
+      new ApiResponse(false, "Invalid Category")
     );
   }
 
