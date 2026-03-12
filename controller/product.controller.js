@@ -2,7 +2,7 @@ const productModel = require("../model/productModel");
 const asyncHandler = require("../utils/asyncHandler.utils");
 const ApiResponse = require("../utils/ApiResponse.utils");
 const mongoose = require("mongoose");
-const { allowedCategories } = require("../constants/allowedCategory");
+const allowedCategories = require("../constants/allowedCategory");
 
 /* ================= Home Router Controller ================= */
 exports.getAllProductsRouterController = asyncHandler(async (req, res) => {
