@@ -42,7 +42,8 @@ const deleteProductRouter = require("./routes/admin/deleteProduct");
 // Middlewares 
 app.use(cors({
   origin: [
-    "https://www.kesharwanimart.in"
+    "https://www.kesharwanimart.in",
+     "http://localhost:5173"
   ],
   credentials: true
 }));

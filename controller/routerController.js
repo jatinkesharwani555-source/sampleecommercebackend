@@ -397,8 +397,8 @@ exports.loginRouterController = async (req, res) => {
         }, process.env.SECRET_KEY, { expiresIn: "1h" });
         res.cookie("tokenName", token, {
             httpOnly: true,
-            secure: true,
-            sameSite: "none",
+            secure: true,  // true in production
+            sameSite: "none", // None in Production
             path: "/"
         });
 
