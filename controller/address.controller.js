@@ -6,7 +6,7 @@ exports.getUserAddressController = asyncHandler(async (req, res) => {
   const userId = req.user.id;
 
   const addresses = await addressModel
-  .find({ user: userId })
+  .find({ userId: userId })
   .sort({createdAt: -1,})
   .limit(3);
   res.status(200).json(new ApiResponse(true, "Address Fetched Successfully", addresses));
@@ -44,7 +44,7 @@ exports.addUserAddressController = asyncHandler(async (req, res) => {
 
   // ✅ Create Address
   const newAddress = await addressModel.create({
-    user: userId,
+    userId: userId,
     name,
     phone,
     pincode,
