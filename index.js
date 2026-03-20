@@ -45,7 +45,7 @@ const addUserAddress = require("./routes/address/addUserAddress");
 app.use(cors({
   origin: [
     "https://www.kesharwanimart.in",
-     "http://localhost:5173"
+    //  "http://localhost:5173"
   ],
   credentials: true
 }));
