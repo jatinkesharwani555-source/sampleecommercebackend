@@ -1,0 +1,38 @@
+const mongoose = require("../config/mongoose");
+
+const addressSchema = mongoose.Schema({
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        required: true
+    },
+    name: {
+        type: String,
+        required: true,
+    },
+    phone: {
+        type: String,
+        required: true
+    },
+    pincode: {
+        type: String,
+        required: true
+    },
+    state: {
+        type: String
+    },
+    city: {
+        type: String,
+        required: true,
+    },
+    address: {
+        type: String,
+        required: true
+    },
+    isDefault: {
+        type: Boolean,
+        default: false,
+    }
+}, {timestamp: true});
+
+module.exports = mongoose.model("Address", addressSchema);

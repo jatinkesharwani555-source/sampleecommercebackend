@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require("../config/mongoose");
 
 const productSchema = mongoose.Schema({
     productMiniDesc: {

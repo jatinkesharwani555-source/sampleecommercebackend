@@ -38,6 +38,8 @@ const bestSellerProductRouter = require("./routes/pages/bestSellerProducts");
 const searchProducts = require("./routes/searchProducts");
 const updateProductRouter = require("./routes/admin/updateProduct");
 const deleteProductRouter = require("./routes/admin/deleteProduct");
+const getUserAddress = require("./routes/address/getUserAddress");
+const addUserAddress = require("./routes/address/addUserAddress");
 
 // Middlewares 
 app.use(cors({
@@ -84,5 +86,9 @@ app.use(getCartItemsRouter);
 app.use(addItemRouter);
 app.use(removeItemRouter);
 app.use(updateQuantityRouter)
+
+/* ===== ADDRESS ===== */
+app.use(getUserAddress);
+app.use(addUserAddress);
 
 app.listen(process.env.PORT || 3000);
