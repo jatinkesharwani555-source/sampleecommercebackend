@@ -12,7 +12,8 @@ exports.getAllProductsRouterController = asyncHandler(async (req, res) => {
 
   const products = await productModel
     .find()
-    .skip(skip);
+    .skip(skip)
+    .sort({ createdAt: -1 })
   // .limit(limit)
 
   res.status(200).json(new ApiResponse(true, "Products Fetched Successfully", products));
@@ -28,7 +29,8 @@ exports.getDetailedProductController = asyncHandler(async (req, res) => {
     );
   }
 
-  const product = await productModel.findById(productId);
+  const product = await productModel
+    .findById(productId);
 
   if (!product) {
     return res.status(404).json(
@@ -69,6 +71,7 @@ exports.getProductListRouterController = asyncHandler(async (req, res) => {
     .find(filter)
     .skip(skip)
     .limit(limit)
+    .sort({ createdAt: -1 })
 
   res.status(200).json(
     new ApiResponse(true, "Products Fetched Successfully", products)
@@ -93,7 +96,7 @@ exports.getProductsByCategoryRouterController = asyncHandler(async (req, res) =>
 
   const products = await productModel.find({
     productCategory: category
-  });
+  }).sort({ createdAt: -1 });
 
   return res.status(200).json(
     new ApiResponse(true, "Products Fetched Successfully", {
@@ -112,7 +115,8 @@ exports.getBestSellerProductRouterController = asyncHandler(async (req, res) => 
   const products = await productModel.find({
     sellerType: "BestSeller"
   }).skip(skip)
-    .limit(limit);
+    .limit(limit)
+    .sort({ createdAt: -1 });
 
   res.status(200).json(
     new ApiResponse(true, "Best Seller Products Fetched Successfully", products)

@@ -394,7 +394,7 @@ exports.loginRouterController = async (req, res) => {
             email: user.userEmail,
             mobile: user.userMobileNo,
             role: user.role
-        }, process.env.SECRET_KEY, { expiresIn: "1h" });
+        }, process.env.SECRET_KEY);
         res.cookie("tokenName", token, {
             httpOnly: true,
             secure: true,  // true in production
